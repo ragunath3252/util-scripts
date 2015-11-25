@@ -1,0 +1,78 @@
+git init # init git in a folder
+
+git checkout -b name #create a new branch and switches to it
+#make changes on the branch
+
+git status -- current status of opend files
+
+git add . # add files to repo
+
+git commit -m "msg" -- commit files to create patch
+
+git format-patch master --stdout > fix_empty_poster.patch # creat patch
+
+diff of a file
+git diff -- <files>
+
+#see last n commits
+git log --pretty=oneline -3
+
+git commit -m "msg" files to create commit
+
+git format-patch -1 commid_id to create patch
+
+#git push specific commit
+git push origin 712acff81033eddc90bb2b45e1e4cd031fefc50f:master
+
+#to push entire repo
+git push -u origin master
+
+#branch withour locak changes
+git stash #save local changes
+git checkout remotes/origin/master #go to master
+git checkout -b bugFix #create new branch
+work
+git checkout -b master
+git stash pop
+
+#git create patch netween commits
+git format-patch commitStart^..commitLatest --stdout > test.patch
+
+
+#reset a repo
+git clean -df 
+git checkout -- .
+git fetch origin master
+git reset --hard origin/master
+
+#revert last commit
+git reset --soft HEAD^     # use --soft if you want to keep your changes
+git reset --hard HEAD^     # use --hard if you don't care about keeping the changes you made
+
+#unstage a file
+git reset head <file>
+
+#git generate patch from commit-id
+git format-patch <commit-id> #creates patches for commits after specified id
+
+#delete last commit from remote
+f you want revert last commit listen:
+
+Step 1:
+
+Check your local commits with messages
+
+$ git log
+Step 2:
+
+Remove last commit without resetting the changes from local branch (or master)
+
+$ git reset HEAD^
+If you don't want last commit files and updates listens
+
+$ git reset HEAD^ --hard
+Step 3:
+
+We can update the files and codes and again need to push with force it will delete previous commit. It will keep new commit.
+
+$ git push origin branch -f

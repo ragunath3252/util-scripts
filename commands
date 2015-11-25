@@ -1,0 +1,30 @@
+#grep only certain file names
+grep --include=Makefile.am -P -r 'if'
+
+../../rtems/configure --prefix=/home/ragu/build_tools/rtems_latest --target=arm-rtems4.11 --enable-rtemsbsp=beagleboneblack
+
+#rtems--ntp for beagleboneblack
+../source-builder/sb-set-builder --log=log_ntp_arm.tx --with-tools=/home/ragu/build_tools/rtems/compiler/4.11 --host=x86_64-linux-gnu 4.11/net/ntp --prefix=/home/ragu/build_tools/rtems_latest --rtems-bsp=arm/beagleboneblack --target=arm-rtems4.11
+
+#command for lwip
+sudo -E ../source-builder/sb-set-builder --log=log_lwip --with-tools=/home/ragu/build_tools/rtems/compiler/4.11 --host=x86_64-linux-gnu 4.11/net/lwip --prefix=/home/ragu/build_tools/rtems_latest --rtems-bsp=arm/beagleboneblack --target=arm-rtems4.11
+
+
+#exe build lwip
+arm-rtems4.11-gcc --pipe -B/home/ragu/build_tools/rtems_latest/arm-rtems4.11/beagleboneblack/lib/ -specs bsp_specs -qrtems   -Wall  -O2 -g  -g -O0 -DLWIP_DEBUG   -mcpu=cortex-a8      -I../src/include -I../src/include/ipv4 -I../src/include/ipv6 -I../src/include/netif -I../ports/cpsw/include -I../ports/cpsw/include/netif -I..   -fwhole-program -Wl,--gc-sections -fno-exceptions  -mcpu=cortex-a8   -o o-optimize/lwip.exe o-optimize/*.o
+
+#exe with lib archive
+arm-rtems4.11-gcc --pipe -B/home/ragu/build_tools/rtems_latest/arm-rtems4.11/beagleboneblack/lib/ -specs bsp_specs -qrtems   -Wall  -O2 -g  -g -O0 -DLWIP_DEBUG   -mcpu=cortex-a8      -I../src/include -I../src/include/ipv4 -I../src/include/ipv6 -I../src/include/netif -I../ports/include -I../ports/include/netif -I..   -fwhole-program -Wl,--gc-sections -fno-exceptions  -mcpu=cortex-a8   -o lwip.exe o-optimize/main.o o-optimize/enetEcho.o o-optimize/echod.o ../o-optimize/liblwip.a
+
+### get file link from google. Copy paste the google url in the paslce of URL
+perl -MCGI -e '$p = CGI->new("<#URL#>"); print $p->param('url'); print "\n"'
+
+##APT behind proxy
+Acquire::http::proxy  "http://10.0.0.60:3128/";
+Acquire::ftp::proxy "http://10.0.0.60:3128/";
+Acquire::https::proxy "http://10.0.0.60:3128/";
+Reading the man page:
+
+Each line is of the form APT::Get::Assume-Yes "true";. The quotation marks and trailing semicolon are required.
+
+../../rtems/configure --prefix=/home/ragu/work/thesis/tools --target=arm-rtems4.11 --enable-rtemsbsp=beagleboneblack
